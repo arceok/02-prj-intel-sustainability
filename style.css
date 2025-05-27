@@ -1,1 +1,301 @@
 /* Add your CSS here */
+
+/* Blue sidebar on the left - make it wider and fill the full height */
+.hero-title-bg {
+  background: #0071c5;
+  padding: 32px 0 24px 0;
+  text-align: center;
+  width: 400px; /* Even wider sidebar */
+  min-height: 100vh;
+  box-sizing: border-box;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 1; /* Make sure sidebar stays on top */
+}
+
+/* Remove .hero-row and .hero-right layout styles */
+.hero-row, .hero-right {
+  display: none !important;
+}
+
+/* Timeline section: horizontal scroll with scroll snap, starts after sidebar */
+#timeline-section {
+  display: flex;
+  flex-direction: row;
+  align-items: center; /* Center cards vertically in the section */
+  gap: 40px;
+  margin: 0;
+  margin-left: 440px;
+  /* Reduce margin-top so cards are not pushed too far down */
+  margin-top: 220px; /* Should match .headbar height */
+  padding: 0;
+  box-sizing: border-box;
+  width: calc(100vw - 440px);
+  min-height: calc(100vh - 220px); /* Match .headbar height */
+  overflow-x: auto;
+  overflow-y: visible; /* Allow content to show above the section */
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  position: relative;
+  z-index: 0;
+}
+
+/* Move the horizontal scrollbar closer to the cards */
+#timeline-section::-webkit-scrollbar {
+  height: 24px; /* Bigger scrollbar height */
+  background: #e0e0e0;
+}
+
+#timeline-section::-webkit-scrollbar-thumb {
+  background: #b0b0b0;
+  border-radius: 12px;
+  border: 4px solid #e0e0e0; /* Adds padding inside the track for easier grabbing */
+}
+
+/* For Firefox */
+#timeline-section {
+  scrollbar-width: thick; /* Thicker scrollbar */
+  scrollbar-color: #b0b0b0 #e0e0e0;
+}
+
+/* Each timeline card snaps to the start of the scroll area */
+.timeline-card {
+  /* Remove background and padding from the outer card */
+  background: none;
+  box-shadow: none;
+  border-radius: 0;
+  padding: 0;
+  position: relative;
+  width: 80vw;
+  max-width: 1000px;
+  min-width: 400px;
+  height: 480px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  scroll-snap-align: start;
+  flex-shrink: 0;
+  perspective: 1200px; /* Needed for 3D flip effect */
+  z-index: 1; /* Make sure cards are above the section */
+}
+
+/* The flipping card itself now gets the background, border-radius, and shadow */
+.timeline-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
+  transform-style: preserve-3d;
+  border-radius: 32px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.10);
+  background: #f5f5f5;
+  padding: 48px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Flip on hover */
+.timeline-card:hover .timeline-card-inner {
+  transform: rotateX(180deg);
+}
+
+/* Front and back faces */
+.timeline-card-front,
+.timeline-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0; top: 0;
+  backface-visibility: hidden;
+  border-radius: 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  padding: 0;
+}
+
+/* Front face (default) */
+.timeline-card-front {
+  z-index: 2;
+  background: transparent; /* No extra background */
+}
+
+/* Back face (description) */
+.timeline-card-back {
+  transform: rotateX(180deg);
+  z-index: 3;
+  padding: 48px;
+  background: #e3f0fa;
+  color: #222;
+  font-size: 2.1rem; /* Even bigger font size for description */
+  box-shadow: 0 8px 32px rgba(0,0,0,0.10);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  min-height: 350px;
+  line-height: 1.5;
+  text-align: center;
+}
+
+/* Remove the description from the front */
+.timeline-card-front p {
+  display: none;
+}
+
+/* Optional: smooth image zoom on hover */
+.timeline-card img {
+  display: block;
+  margin: 28px auto;
+  width: 95%;
+  max-width: 1000px;
+  height: auto;
+  border-radius: 6px;
+  transition: transform 0.25s cubic-bezier(0.4, 0.2, 0.2, 1);
+}
+
+.timeline-card:hover img {
+  transform: scale(1.04);
+}
+
+/* Timeline card headings and text - bigger fonts */
+.timeline-card h2 {
+  font-size: 2.4rem;
+  margin-bottom: 12px;
+}
+.timeline-card h3 {
+  font-size: 1.6rem;
+  margin-bottom: 18px;
+}
+.timeline-card p {
+  font-size: 1.25rem;
+  margin-top: 18px;
+}
+
+/* Remove old panel/button styles and transitions */
+#timeline-panel, #prev-btn, #next-btn,
+#timeline-panel.fade, #timeline-panel.fade-in,
+#timeline-panel.swipe-left, #timeline-panel.swipe-right,
+#timeline-panel.swipe-in-right, #timeline-panel.swipe-in-left {
+  display: none !important;
+}
+
+/* Remove fixed position and body margin for new layout */
+body {
+  margin-left: 0;
+  background: #f0f3f6; /* Soft, blue-friendly gray */
+}
+
+/* Headbar at the top, starts after the sidebar */
+.headbar {
+  position: fixed;
+  top: 0;
+  left: 400px;
+  height: 220px; /* Make the headbar taller for more space */
+  width: calc(100vw - 400px);
+  background: #0068B5;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; /* Start content at the top */
+  align-items: center;
+  padding-left: 32px;
+  padding-right: 32px;
+  padding-top: 48px; /* Add more space between header and top of page */
+  box-sizing: border-box;
+  z-index: 2;
+  text-align: center;
+}
+
+/* Title in the headbar - even bigger and bold */
+.headbar-title {
+  font-size: 3.5rem;
+  font-weight: bold;
+  margin: 0 0 24px 0;
+  letter-spacing: 1px;
+}
+
+/* Subheader in the headbar - slightly bigger */
+.headbar-subheader {
+  font-size: 1.3rem;
+  font-weight: normal;
+  margin: 0;
+  max-width: 900px;
+  line-height: 1.5;
+}
+
+/* Responsive: stack blue sidebar on top for small screens and use vertical timeline */
+@media (max-width: 1100px) {
+  .hero-title-bg {
+    position: static;
+    width: 100vw; /* Fill the full viewport width */
+    min-width: 100vw;
+    max-width: 100vw;
+    min-height: unset;
+    height: auto;
+    padding: 24px 0 16px 0;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .headbar {
+    position: static;
+    left: 0;
+    width: 100vw;
+    height: auto;
+    padding: 16px;
+    font-size: 1.1rem;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+  .headbar-title, .headbar-subheader {
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+  }
+  #timeline-section {
+    flex-direction: column;
+    margin-left: 0;
+    margin-top: 0;
+    width: 100%;
+    padding: 24px 0;
+    align-items: center;
+    overflow-x: visible;
+    overflow-y: visible;
+    scroll-snap-type: none;
+  }
+  .timeline-card {
+    max-width: 98vw;
+    min-width: 0;
+    padding: 20px;
+    width: 100%;
+    scroll-snap-align: none;
+  }
+  .timeline-card-inner {
+    min-height: 320px;
+    padding: 20px;
+  }
+  .timeline-card-back {
+    padding: 20px;
+    font-size: 1rem;
+  }
+}
+
+/* Main title styling (white on blue) */
+.main-title {
+  font-size: 1.6rem;
+  color: #fff;
+  margin: 0 0 22px 0;
+  font-weight: bold;
+  line-height: 1.2;
+}
