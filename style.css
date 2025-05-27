@@ -157,7 +157,8 @@
   margin: 28px auto;
   width: 95%;
   max-width: 1000px;
-  height: auto;
+  height: 260px; /* Fixed height for consistent cropping */
+  object-fit: cover; /* Crop and fill the area like img 1.jpg */
   border-radius: 6px;
   transition: transform 0.25s cubic-bezier(0.4, 0.2, 0.2, 1);
 }
@@ -298,4 +299,16 @@ body {
   margin: 0 0 22px 0;
   font-weight: bold;
   line-height: 1.2;
+}
+
+/* Special cropping for the 2022 timeline card image to show more of the bottom */
+.timeline-card-front h2:contains("2022") + h3 + img {
+  object-position: center bottom; /* Show more of the bottom of the image */
+}
+
+/* For better browser support, you can also add a class in your HTML:
+   <img class="img-bottom" ...>
+   And use this CSS: */
+.img-bottom {
+  object-position: center bottom;
 }
