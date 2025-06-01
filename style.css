@@ -1,21 +1,34 @@
 /* Add your CSS here */
 
-/* Blue sidebar on the left - make it wider and fill the full height */
+/* Blue header at the top with gradient background and centered logo */
 .hero-title-bg {
-  background: #0071c5;
-  padding: 32px 0 24px 0;
+  background: linear-gradient(135deg, #3f9adf 0%, #013b68 100%);
+  padding: 0;
   text-align: center;
-  width: 400px; /* Even wider sidebar */
-  min-height: 100vh;
-  box-sizing: border-box;
-  position: fixed;
+  width: 100vw;
+  min-width: 100vw;
+  max-width: 100vw;
+  min-height: 420px; /* Make header area much bigger */
+  height: 700px;
+  position: static;
   top: 0;
   left: 0;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  z-index: 1; /* Make sure sidebar stays on top */
+  justify-content: flex-start; /* Keep logo at the top */
+  z-index: 1;
+  box-sizing: border-box;
+  margin-top: 0;
+}
+
+/* Center the Intel logo and keep it at the top center */
+.hero-title-bg img {
+  width: 160px;
+  height: auto;
+  margin-top: 50px; /* Increased space above the logo */
+  margin-bottom: 80px; /* Add more space below the logo */
+  align-self: center;
 }
 
 /* Remove .hero-row and .hero-right layout styles */
@@ -23,26 +36,24 @@
   display: none !important;
 }
 
-/* Timeline section: horizontal scroll with scroll snap, starts after sidebar */
+/* Timeline section: use Bootstrap-like grid for cards */
 #timeline-section {
-  display: flex;
-  flex-direction: row;
-  align-items: center; /* Center cards vertically in the section */
-  gap: 40px;
-  margin: 0;
-  margin-left: 440px;
-  /* Reduce margin-top so cards are not pushed too far down */
-  margin-top: 220px; /* Should match .headbar height */
+  display: block; /* Let Bootstrap handle layout */
+  flex-wrap: unset;
+  flex-direction: unset;
+  justify-content: unset;
+  align-items: unset;
+  gap: unset;
   padding: 0;
+  margin: 0;
+  width: 100vw;
+  min-height: unset;
+  overflow-x: unset;
+  overflow-y: unset;
+  scroll-snap-type: none;
+  position: static;
+  z-index: unset;
   box-sizing: border-box;
-  width: calc(100vw - 440px);
-  min-height: calc(100vh - 220px); /* Match .headbar height */
-  overflow-x: auto;
-  overflow-y: visible; /* Allow content to show above the section */
-  scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch;
-  position: relative;
-  z-index: 0;
 }
 
 /* Move the horizontal scrollbar closer to the cards */
@@ -71,14 +82,11 @@
   border-radius: 0;
   padding: 0;
   position: relative;
-  width: 80vw;
-  max-width: 1000px;
-  min-width: 400px;
-  height: 480px;
+  /* 4 per row on large screens */
+  height: 400px; /* Keep a fixed height for all cards */
   display: flex;
   align-items: center;
   justify-content: center;
-  scroll-snap-align: start;
   flex-shrink: 0;
   perspective: 1200px; /* Needed for 3D flip effect */
   z-index: 1; /* Make sure cards are above the section */
@@ -167,18 +175,80 @@
   transform: scale(1.04);
 }
 
-/* Timeline card headings and text - bigger fonts */
+/* Timeline card headings and text - bigger fonts for large screens */
 .timeline-card h2 {
-  font-size: 2.4rem;
+  font-size: 2.4rem;      /* Large date font */
   margin-bottom: 12px;
+  margin-top: 28px;       /* Add more space above the date */
 }
 .timeline-card h3 {
-  font-size: 1.6rem;
+  font-size: 1.6rem;      /* Subtitle font */
   margin-bottom: 18px;
+  margin-top: 0;
 }
 .timeline-card p {
-  font-size: 1.25rem;
-  margin-top: 18px;
+  font-size: 1.25rem;     /* Description font */
+  margin-top: 10px;       /* Less space above description */
+}
+
+/* Responsive: shrink fonts and adjust spacing for medium screens */
+@media (max-width: 1100px) {
+  .timeline-card h2 {
+    font-size: 1.8rem;
+    margin-top: 18px;
+    margin-bottom: 8px;
+  }
+  .timeline-card h3 {
+    font-size: 1.2rem;
+    margin-bottom: 12px;
+  }
+  .timeline-card p {
+    font-size: 1rem;
+    margin-top: 6px;
+  }
+}
+
+/* Responsive: shrink fonts and adjust spacing for small screens */
+@media (max-width: 700px) {
+  .timeline-card {
+    height: 340px; /* Slightly taller to fit all content */
+    margin-bottom: 24px;
+  }
+  .timeline-card-inner {
+    padding: 18px 8px 12px 8px; /* More top padding for all cards */
+    min-height: 200px;
+  }
+  /* Make headings and text easier to read on small screens */
+  .timeline-card h2 {
+    font-size: 1.5rem;      /* Bigger date font for readability */
+    margin-top: 22px;       
+    margin-bottom: 6px;
+  }
+  .timeline-card h3 {
+    font-size: 1.1rem;      /* Bigger subtitle font */
+    margin-bottom: 8px;
+    margin-top: 0;
+  }
+  .timeline-card p {
+    font-size: 1rem;        /* Bigger description font */
+    margin-top: 6px;
+  }
+
+  /* Fix for cards 2006 to 2024: add extra space above the date */
+  .timeline-card-front h2 {
+    /* Default for all cards */
+    font-size: 1.5rem;
+    margin-top: 22px;
+    margin-bottom: 6px;
+  }
+  /* Target cards with years 2006 and above */
+  .timeline-card-front h2:contains("2006"),
+  .timeline-card-front h2:contains("2020"),
+  .timeline-card-front h2:contains("2022"),
+  .timeline-card-front h2:contains("2023"),
+  .timeline-card-front h2:contains("2024") {
+    margin-top: 38px; /* More space above the date for these cards */
+  }
 }
 
 /* Remove old panel/button styles and transitions */
@@ -191,53 +261,81 @@
 
 /* Remove fixed position and body margin for new layout */
 body {
+  margin: 0;
   margin-left: 0;
   background: #f0f3f6; /* Soft, blue-friendly gray */
 }
 
 /* Headbar at the top, starts after the sidebar */
 .headbar {
-  position: fixed;
-  top: 0;
-  left: 400px;
-  height: 220px; /* Make the headbar taller for more space */
-  width: calc(100vw - 400px);
+  position: static;
+  width: 100vw;
+  left: 0;
+  height: 220px;
   background: #0068B5;
   color: #fff;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start; /* Start content at the top */
-  align-items: center;
+  justify-content: center;   /* Center vertically */
+  align-items: center;       /* Center horizontally */
   padding-left: 32px;
   padding-right: 32px;
-  padding-top: 48px; /* Add more space between header and top of page */
+  padding-top: 0;
   box-sizing: border-box;
   z-index: 2;
   text-align: center;
 }
 
-/* Title in the headbar - even bigger and bold */
+/* Title in the headbar - center horizontally and allow wrapping */
 .headbar-title {
-  font-size: 3.5rem;
+  font-size: 4rem;
   font-weight: bold;
   margin: 0 0 24px 0;
   letter-spacing: 1px;
+  font-family: sans-serif;
+  color: #fff;
+  text-align: center;
+  width: 100%;
+  /* Remove flex and justify-content from here to avoid flexbox issues */
+  /* display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap; */
+  margin-left: auto;
+  margin-right: auto;
+  /* Add auto margins to center block element */
+  max-width: 900px; /* Optional: limit width for better centering */
 }
 
-/* Subheader in the headbar - slightly bigger */
+/* Responsive font size for smaller screens */
+@media (max-width: 700px) {
+  .headbar-title {
+    font-size: 2.2rem;
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+}
+
+/* Subheader in the headbar */
 .headbar-subheader {
-  font-size: 1.3rem;
+  font-size: 1.7rem;
   font-weight: normal;
   margin: 0;
   max-width: 900px;
   line-height: 1.5;
+  font-family: sans-serif;
+  color: #fff;
+  text-align: center;
+  width: 100%;
+  /* Remove flex and justify-content from here to avoid flexbox issues */
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* Responsive: stack blue sidebar on top for small screens and use vertical timeline */
 @media (max-width: 1100px) {
   .hero-title-bg {
-    position: static;
-    width: 100vw; /* Fill the full viewport width */
+    width: 100vw;
     min-width: 100vw;
     max-width: 100vw;
     min-height: unset;
@@ -265,31 +363,67 @@ body {
     justify-content: center;
   }
   #timeline-section {
-    flex-direction: column;
-    margin-left: 0;
-    margin-top: 0;
-    width: 100%;
-    padding: 24px 0;
-    align-items: center;
-    overflow-x: visible;
-    overflow-y: visible;
-    scroll-snap-type: none;
+    padding: 24px 8px;
   }
   .timeline-card {
-    max-width: 98vw;
-    min-width: 0;
-    padding: 20px;
-    width: 100%;
-    scroll-snap-align: none;
+    height: 340px;
   }
   .timeline-card-inner {
-    min-height: 320px;
     padding: 20px;
+    min-height: 220px;
   }
   .timeline-card-back {
     padding: 20px;
     font-size: 1rem;
   }
+}
+
+/* Responsive: 1 per row on small screens */
+@media (max-width: 700px) {
+  .timeline-card {
+    height: 340px; /* Slightly taller to fit all content */
+    margin-bottom: 24px;
+  }
+  .timeline-card-inner {
+    padding: 18px 8px 12px 8px; /* More top padding for all cards */
+    min-height: 200px;
+  }
+  /* Make headings and text easier to read on small screens */
+  .timeline-card h2 {
+    font-size: 1.5rem;      /* Bigger date font for readability */
+    margin-top: 22px;       
+    margin-bottom: 6px;
+  }
+  .timeline-card h3 {
+    font-size: 1.1rem;      /* Bigger subtitle font */
+    margin-bottom: 8px;
+    margin-top: 0;
+  }
+  .timeline-card p {
+    font-size: 1rem;        /* Bigger description font */
+    margin-top: 6px;
+  }
+
+  /* Fix for cards 2006 to 2024: add extra space above the date */
+  .timeline-card-front h2 {
+    /* Default for all cards */
+    font-size: 1.5rem;
+    margin-top: 22px;
+    margin-bottom: 6px;
+  }
+  /* Target cards with years 2006 and above */
+  .timeline-card-front h2:contains("2006"),
+  .timeline-card-front h2:contains("2020"),
+  .timeline-card-front h2:contains("2022"),
+  .timeline-card-front h2:contains("2023"),
+  .timeline-card-front h2:contains("2024") {
+    margin-top: 38px; /* More space above the date for these cards */
+  }
+}
+
+/* Add more space between the header background and the cards below */
+.container.text-center {
+  margin-top: 48px; /* Adds space below the blue header area */
 }
 
 /* Main title styling (white on blue) */
@@ -311,4 +445,138 @@ body {
    And use this CSS: */
 .img-bottom {
   object-position: center bottom;
+}
+
+/* Simple footer styling */
+.footer {
+  background: #013b68;
+  color: #fff;
+  text-align: center;
+  padding: 28px 10px 18px 10px;
+  margin-top: 40px;
+  font-size: 1rem;
+}
+
+.footer-content {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.footer-nav {
+  margin-top: 10px;
+}
+
+.footer-nav a {
+  color: #fff;
+  text-decoration: underline;
+  margin: 0 8px;
+  font-size: 1rem;
+}
+
+.footer-nav a:hover {
+  text-decoration: none;
+}
+
+/* Newsletter subscribe button styling */
+.newsletter-subscribe {
+  text-align: center;
+  margin: 32px 0 0 0;
+}
+
+/* Make the newsletter subscribe button bigger */
+.newsletter-subscribe .btn {
+  font-size: 1.4rem;
+  padding: 18px 44px;
+  border-radius: 32px;
+}
+
+/* Subscription form styling */
+.subscribe-form {
+  text-align: center;
+  margin: 24px 0 0 0;
+  display: flex;
+  justify-content: center; /* Center the form horizontally */
+}
+
+/* Make the form the same width as a timeline card column (col-lg-3) */
+.subscribe-form form {
+  background: #f5f5f5;
+  padding: 36px 32px;
+  border-radius: 28px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.10);
+  width: 100%;
+  max-width: 340px; /* About the width of col-lg-3 */
+  min-width: 220px;
+  margin: 0 auto;
+  display: block; /* Use block for simple vertical stacking */
+  text-align: left; /* Left align for LTR */
+}
+
+/* Make input fields and button bigger and full width */
+.subscribe-form input[type="text"],
+.subscribe-form input[type="email"] {
+  padding: 14px 18px;
+  border-radius: 8px;
+  border: 1px solid #bbb;
+  margin-bottom: 18px;
+  width: 100%;
+  font-size: 1.2rem;
+  display: block;
+  box-sizing: border-box;
+}
+
+.subscribe-form label {
+  font-size: 1.1rem;
+  margin-bottom: 8px;
+  display: block;
+  text-align: left;      /* Align label text to the left for LTR */
+  width: 100%;
+}
+
+.subscribe-form button {
+  font-size: 1.2rem;
+  padding: 12px 36px;
+  border-radius: 24px;
+  margin-top: 8px;
+  display: block;
+}
+
+/* Add a red * for required fields */
+.subscribe-form label.required::after {
+  content: " *";
+  color: #d32f2f;
+  font-weight: bold;
+}
+
+/* Responsive: make sure the form fits on small screens */
+@media (max-width: 700px) {
+  .subscribe-form form {
+    min-width: 0;
+    width: 98vw;
+    max-width: 98vw;
+    padding: 18px 4vw;
+    text-align: left;
+  }
+  .subscribe-form input[type="text"],
+  .subscribe-form input[type="email"] {
+    width: 100%;
+    font-size: 1rem;
+    padding: 10px 8px;
+  }
+  .newsletter-subscribe .btn {
+    font-size: 1.1rem;
+    padding: 12px 18px;
+  }
+  .subscribe-form button {
+    font-size: 1rem;
+    padding: 10px 18px;
+  }
+}
+
+/* RTL support: align everything to the right for RTL languages */
+html[dir="rtl"] .subscribe-form form {
+  text-align: right;
+}
+html[dir="rtl"] .subscribe-form label {
+  text-align: right;
 }
