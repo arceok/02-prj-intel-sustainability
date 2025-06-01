@@ -211,43 +211,40 @@
 /* Responsive: shrink fonts and adjust spacing for small screens */
 @media (max-width: 700px) {
   .timeline-card {
-    height: 340px; /* Slightly taller to fit all content */
-    margin-bottom: 24px;
+    height: 400px; /* Make cards even taller to fit all content */
+    margin-bottom: 32px;
+    /* Center the card horizontally */
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
   }
   .timeline-card-inner {
-    padding: 18px 8px 12px 8px; /* More top padding for all cards */
-    min-height: 200px;
+    padding-top: 48px; /* Add even more space at the top for all cards */
+    padding-right: 8px;
+    padding-bottom: 12px;
+    padding-left: 8px;
+    min-height: 240px;
+    box-sizing: border-box;
   }
-  /* Make headings and text easier to read on small screens */
   .timeline-card h2 {
-    font-size: 1.5rem;      /* Bigger date font for readability */
-    margin-top: 22px;       
+    font-size: 1.5rem;
+    margin-top: 0;    /* Remove extra margin above the date */
     margin-bottom: 6px;
   }
   .timeline-card h3 {
-    font-size: 1.1rem;      /* Bigger subtitle font */
+    font-size: 1.1rem;
     margin-bottom: 8px;
     margin-top: 0;
   }
   .timeline-card p {
-    font-size: 1rem;        /* Bigger description font */
+    font-size: 1rem;
     margin-top: 6px;
   }
-
-  /* Fix for cards 2006 to 2024: add extra space above the date */
+  /* Remove any special margin-top for specific years */
   .timeline-card-front h2 {
-    /* Default for all cards */
     font-size: 1.5rem;
-    margin-top: 22px;
+    margin-top: 0;
     margin-bottom: 6px;
-  }
-  /* Target cards with years 2006 and above */
-  .timeline-card-front h2:contains("2006"),
-  .timeline-card-front h2:contains("2020"),
-  .timeline-card-front h2:contains("2022"),
-  .timeline-card-front h2:contains("2023"),
-  .timeline-card-front h2:contains("2024") {
-    margin-top: 38px; /* More space above the date for these cards */
   }
 }
 
@@ -381,70 +378,87 @@ body {
 /* Responsive: 1 per row on small screens */
 @media (max-width: 700px) {
   .timeline-card {
-    height: 340px; /* Slightly taller to fit all content */
-    margin-bottom: 24px;
+    height: 370px;
+    margin-bottom: 28px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
   }
   .timeline-card-inner {
-    padding: 18px 8px 12px 8px; /* More top padding for all cards */
-    min-height: 200px;
+    padding-top: 38px;
+    padding-right: 8px;
+    padding-bottom: 12px;
+    padding-left: 8px;
+    min-height: 220px;
+    box-sizing: border-box;
   }
-  /* Make headings and text easier to read on small screens */
   .timeline-card h2 {
-    font-size: 1.5rem;      /* Bigger date font for readability */
-    margin-top: 22px;       
-    margin-bottom: 6px;
+    font-size: 1.5rem;
+    margin: 0 0 6px 0;
   }
   .timeline-card h3 {
-    font-size: 1.1rem;      /* Bigger subtitle font */
-    margin-bottom: 8px;
-    margin-top: 0;
+    font-size: 1.1rem;
+    margin: 0 0 8px 0;
   }
   .timeline-card p {
-    font-size: 1rem;        /* Bigger description font */
+    font-size: 1rem;
     margin-top: 6px;
   }
+  /* Remove special margin for years 2006+ (not needed if all cards have enough space) */
+}
 
-  /* Fix for cards 2006 to 2024: add extra space above the date */
-  .timeline-card-front h2 {
-    /* Default for all cards */
-    font-size: 1.5rem;
-    margin-top: 22px;
-    margin-bottom: 6px;
+/* Center the newsletter subscribe button */
+.newsletter-subscribe {
+  text-align: center;
+  margin: 32px 0 0 0;
+}
+
+/* Make the newsletter subscribe button bigger */
+.newsletter-subscribe .btn {
+  font-size: 1.4rem;
+  padding: 18px 44px;
+  border-radius: 32px;
+  display: inline-block;
+  margin: 0 auto;
+}
+
+/* Center the subscription form container */
+.subscribe-form {
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center;     /* Center vertically if needed */
+  margin: 24px 0 0 0;
+  text-align: center;
+}
+
+/* Center the form itself and set a fixed width for desktop */
+.subscribe-form form {
+  margin: 0 auto;
+  background: #f5f5f5;
+  padding: 36px 32px;
+  border-radius: 28px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.10);
+  max-width: 340px;
+  min-width: 220px;
+  width: 100%;
+  display: block;
+  text-align: left;
+}
+
+/* Responsive: make sure the form fits on small screens */
+@media (max-width: 700px) {
+  .subscribe-form {
+    padding: 0 4vw;
   }
-  /* Target cards with years 2006 and above */
-  .timeline-card-front h2:contains("2006"),
-  .timeline-card-front h2:contains("2020"),
-  .timeline-card-front h2:contains("2022"),
-  .timeline-card-front h2:contains("2023"),
-  .timeline-card-front h2:contains("2024") {
-    margin-top: 38px; /* More space above the date for these cards */
+  .subscribe-form form {
+    min-width: 0;
+    width: 98vw;
+    max-width: 98vw;
+    padding: 18px 4vw;
+    text-align: left;
+    margin: 0 auto;
   }
-}
-
-/* Add more space between the header background and the cards below */
-.container.text-center {
-  margin-top: 48px; /* Adds space below the blue header area */
-}
-
-/* Main title styling (white on blue) */
-.main-title {
-  font-size: 1.6rem;
-  color: #fff;
-  margin: 0 0 22px 0;
-  font-weight: bold;
-  line-height: 1.2;
-}
-
-/* Special cropping for the 2022 timeline card image to show more of the bottom */
-.timeline-card-front h2:contains("2022") + h3 + img {
-  object-position: center bottom; /* Show more of the bottom of the image */
-}
-
-/* For better browser support, you can also add a class in your HTML:
-   <img class="img-bottom" ...>
-   And use this CSS: */
-.img-bottom {
-  object-position: center bottom;
+  /* ...existing code... */
 }
 
 /* Simple footer styling */
@@ -475,108 +489,4 @@ body {
 
 .footer-nav a:hover {
   text-decoration: none;
-}
-
-/* Newsletter subscribe button styling */
-.newsletter-subscribe {
-  text-align: center;
-  margin: 32px 0 0 0;
-}
-
-/* Make the newsletter subscribe button bigger */
-.newsletter-subscribe .btn {
-  font-size: 1.4rem;
-  padding: 18px 44px;
-  border-radius: 32px;
-}
-
-/* Subscription form styling */
-.subscribe-form {
-  text-align: center;
-  margin: 24px 0 0 0;
-  display: flex;
-  justify-content: center; /* Center the form horizontally */
-}
-
-/* Make the form the same width as a timeline card column (col-lg-3) */
-.subscribe-form form {
-  background: #f5f5f5;
-  padding: 36px 32px;
-  border-radius: 28px;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.10);
-  width: 100%;
-  max-width: 340px; /* About the width of col-lg-3 */
-  min-width: 220px;
-  margin: 0 auto;
-  display: block; /* Use block for simple vertical stacking */
-  text-align: left; /* Left align for LTR */
-}
-
-/* Make input fields and button bigger and full width */
-.subscribe-form input[type="text"],
-.subscribe-form input[type="email"] {
-  padding: 14px 18px;
-  border-radius: 8px;
-  border: 1px solid #bbb;
-  margin-bottom: 18px;
-  width: 100%;
-  font-size: 1.2rem;
-  display: block;
-  box-sizing: border-box;
-}
-
-.subscribe-form label {
-  font-size: 1.1rem;
-  margin-bottom: 8px;
-  display: block;
-  text-align: left;      /* Align label text to the left for LTR */
-  width: 100%;
-}
-
-.subscribe-form button {
-  font-size: 1.2rem;
-  padding: 12px 36px;
-  border-radius: 24px;
-  margin-top: 8px;
-  display: block;
-}
-
-/* Add a red * for required fields */
-.subscribe-form label.required::after {
-  content: " *";
-  color: #d32f2f;
-  font-weight: bold;
-}
-
-/* Responsive: make sure the form fits on small screens */
-@media (max-width: 700px) {
-  .subscribe-form form {
-    min-width: 0;
-    width: 98vw;
-    max-width: 98vw;
-    padding: 18px 4vw;
-    text-align: left;
-  }
-  .subscribe-form input[type="text"],
-  .subscribe-form input[type="email"] {
-    width: 100%;
-    font-size: 1rem;
-    padding: 10px 8px;
-  }
-  .newsletter-subscribe .btn {
-    font-size: 1.1rem;
-    padding: 12px 18px;
-  }
-  .subscribe-form button {
-    font-size: 1rem;
-    padding: 10px 18px;
-  }
-}
-
-/* RTL support: align everything to the right for RTL languages */
-html[dir="rtl"] .subscribe-form form {
-  text-align: right;
-}
-html[dir="rtl"] .subscribe-form label {
-  text-align: right;
 }
